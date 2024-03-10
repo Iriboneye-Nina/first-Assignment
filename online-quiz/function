@@ -1,0 +1,37 @@
+const quiz = require('./quiz');
+
+function displayQuestion() {
+  const randomIndex = Math.floor(Math.random() * quiz.length);
+  const question = quiz[randomIndex].question;
+  const choices = quiz[randomIndex].choices;
+
+  console.log(question);
+  choices.forEach((choice, index) => {
+    console.log(`${index + 1}. ${choice}`);
+  });
+
+  const userAnswer = parseInt(prompt("Please enter your answer (1-4):"));
+
+  checkAnswer(randomIndex, userAnswer - 1);
+}
+
+function checkAnswer(questionIndex, userAnswer) {
+  const correctAnswer = quiz[questionIndex].correctAnswer;
+
+  if (userAnswer === correctAnswer) {
+    console.log("Correct answer!");
+    incrementScore();
+  } else {
+    console.log("Incorrect answer!");
+  }
+}
+
+let score = 0;
+
+function incrementScore() {
+  score++;
+}
+
+module.exports = {
+  displayQuestion
+};
